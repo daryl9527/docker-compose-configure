@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataConfig>
+	<dataSource name="source1" type="JdbcDataSource" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://192.168.3.167:3306/reader?serverTimezone=Asia/Shanghai&amp;useSSL=false" user="root" password="fanshu@2018" batchSize="-1" />
+	<document>
+		     <entity name="language" pk="id"  dataSource="source1" query="select * from  view_cate_columns_content where novel_status=1"  deltaImportQuery="select * from view_cate_columns_content where  novel_status=1 and  id='${dih.delta.id}'" deltaQuery="select id from view_cate_columns_content where novel_status=1 and  novel_last_update_time > '${dataimporter.last_index_time}'">
+                 <field column="columns_id" name="columns_id"/>
+				 <field column="id" name="id"/>
+				 <field column="novel_id" name="novel_id"/>
+				 <field column="sort" name="sort"/>
+				 <field column="columns_sort" name="columns_sort"/>
+				 <field column="columns_code" name="columns_code"/>
+				 <field column="columns_name" name="columns_name"/>
+				 <field column="id" name="id"/>
+				 <field column="novel_code" name="novel_code"/>
+				 <field column="novel_category_name" name="novel_category_name"/>
+				 <field column="novel_name" name="novel_name"/>
+				 <field column="novel_author" name="novel_author"/>
+				 <field column="novel_attribute" name="novel_attribute"/>
+				 <field column="novel_ekey" name="novel_ekey"/>
+				 <field column="novel_simage_url" name="novel_simage_url"/>
+				 <field column="novel_description" name="novel_description"/>
+				 <field column="novel_keyword" name="novel_keyword"/>
+				 <field column="novel_word_count" name="novel_word_count"/>
+				 <field column="novel_hot_count" name="novel_hot_count"/>
+				 <field column="novel_simage_url" name="novel_simage_url"/>
+				 <field column="novel_download_path" name="novel_download_path"/>
+				 <field column="novel_completed" name="novel_completed"/>
+				 <field column="novel_pay_type" name="novel_pay_type"/>
+				 <field column="novel_free_chapter_count" name="novel_free_chapter_count"/>
+				 <field column="novel_price" name="novel_price"/>
+				 <field column="novel_chapter_price" name="novel_chapter_price"/>
+				 <field column="novel_read_count" name="novel_read_count"/>
+				 <field column="novel_add_bookself_count" name="novel_add_bookself_count"/>
+				 <field column="novel_last_update_time" name="novel_last_update_time"/>
+				 <field column="create_time" name="create_time"/>
+
+			 </entity>
+	 </document>
+ </dataConfig>

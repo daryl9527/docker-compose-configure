@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataConfig>
+	<dataSource name="source1" type="JdbcDataSource" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://192.168.3.167:3306/reader?serverTimezone=Asia/Shanghai&amp;useSSL=false" user="root" password="fanshu@2018" batchSize="-1" />
+	<document>
+		<entity name="language" pk="id"  dataSource="source1" query="select * from  novel where status=1 " deltaImportQuery="select * from novel where id='${dih.delta.id}'  and status=1" deltImportQuery="select * from novel where id='${dih.delta.id}'  and status=1" deltaQuery="select id from novel where status=1 and  last_update_time > '${dataimporter.last_index_time}'"> 			
+		 <field column="id" name="id"/>
+		 <field column="code" name="code"/>
+		 <field column="name" name="name"/>
+		 <field column="author" name="author"/>
+		 <field column="attribute" name="attribute"/>
+		 <field column="description" name="description"/>
+		 <field column="word_count" name="word_count"/>
+		 <field column="hot_count" name="hot_count"/>
+		 <field column="simage_url" name="simage_url"/>
+		 <field column="download_path" name="download_path"/>
+		 <field column="completed" name="completed"/>
+		 <field column="chapter_count" name="chapter_count"/>
+		 <field column="newest_chapter" name="newest_chapter"/>
+		 <field column="newest_chapter_name" name="newest_chapter_name"/>
+		 <field column="suit_gender" name="suit_gender"/>
+		 <field column="category_name" name="category_name"/>
+		 <field column="sub_category_name" name="sub_category_name"/>
+		 <field column="keyword" name="keyword"/>
+		 <field column="tag" name="tag"/>
+		 <field column="pay_type" name="pay_type"/>
+		 <field column="free_chapter_count" name="free_chapter_count"/>
+		 <field column="price" name="price"/>
+		 <field column="chapter_price" name="chapter_price"/>
+		 <field column="read_count" name="read_count"/>
+		 <field column="create_time" name="create_time"/>
+		 <field column="last_update_time" name="last_update_time"/>
+		 <field column="ekey" name="ekey"/>
+	 </entity>
+ 	</document>
+ </dataConfig>

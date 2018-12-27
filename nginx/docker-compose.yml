@@ -1,0 +1,14 @@
+version: '3'
+services:
+  nginx:
+    container_name: nginx
+    image: nginx:1.15-perl 
+    volumes:
+      - ./nginx_https.conf:/etc/nginx/nginx.conf
+      - ./ssl:/etc/nginx/ssl
+      - ./logs:/etc/nginx/logs
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - "4432:4432"
+      - "8002:8002"

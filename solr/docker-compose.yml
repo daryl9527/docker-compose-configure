@@ -1,0 +1,28 @@
+version: '3'
+services:
+  solr:
+    container_name: solr
+    image: solr:7.5.0
+    volumes:
+      - ./conf/dataimport.properties:/opt/solr/server/solr/conf/dataimport.properties
+      - ./conf/realm.properties:/opt/solr/server/etc/realm.properties
+      - ./conf/solr-jetty-context.xml:/opt/solr/server/contexts/solr-jetty-context.xml
+      - ./conf/web.xml:/opt/solr/server/solr-webapp/webapp/WEB-INF/web.xml
+      - ./dist/solr-dataimport-scheduler-7.5.0.jar:/opt/solr/server/solr-webapp/webapp/WEB-INF/lib/solr-dataimport-scheduler-7.5.0.jar
+      - ./dist/ansj_lucene7_plug-5.1.5.1.jar:/opt/solr/server/solr-webapp/webapp/WEB-INF/lib/ansj_lucene7_plug-5.1.5.1.jar
+      - ./dist/ansj_seg-5.1.6.jar:/opt/solr/server/solr-webapp/webapp/WEB-INF/lib/ansj_seg-5.1.6.jar
+      - ./dist/nlp-lang-1.7.7.jar:/opt/solr/server/solr-webapp/webapp/WEB-INF/lib/nlp-lang-1.7.7.jar
+      - ./dist/mysql-connector-java-8.0.13.jar:/opt/solr/server/solr-webapp/webapp/WEB-INF/lib/mysql-connector-java-8.0.13.jar
+      - ./dist/solr-dataimporthandler-7.5.0.jar:/opt/solr/server/solr-webapp/webapp/WEB-INF/lib/solr-dataimporthandler-7.5.0.jar
+      - ./dist/solr-dataimporthandler-extras-7.5.0.jar:/opt/solr/server/solr-webapp/webapp/WEB-INF/lib/solr-dataimporthandler-extras-7.5.0.jar
+      - ./dudu_core/conf:/opt/solr/server/solr/dudu_core/conf
+      - ./dudu_core/core.properties:/opt/solr/server/solr/dudu_core/core.properties
+      - ./dudu_sort_core/conf:/opt/solr/server/solr/dudu_sort_core/conf
+      - ./dudu_sort_core/core.properties:/opt/solr/server/solr/dudu_sort_core/core.properties
+      - ./data/dudu_core:/opt/solr/server/solr/dudu_core/data
+      - ./data/dudu_sort_core:/opt/solr/server/solr/dudu_sort_core/data
+    environment:
+      - TZ=Asia/Shanghai
+      - SOLR_TIMEZONE=Asia/Shanghai
+    ports:
+      - "8989:8983"
