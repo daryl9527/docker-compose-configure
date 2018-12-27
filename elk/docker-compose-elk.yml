@@ -1,0 +1,62 @@
+version: "3"
+services:
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.6.12
+    restart: always
+    ports:
+      - "${ELASTICSEARCH_OUT_HTTP_PORT}:9200"
+      - "${ELASTICSEARCH_OUT_TCP_PORT}:9300"
+    environment:
+      - cluster.name=${ELASTICSEARCH_CLUSTER_NAME}
+      - bootstrap.memory_lock=true
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - TZ=Asia/Shanghai
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ${ELASTICSEARCH_DATA_PATH}:/usr/share/elasticsearch/data
+    networks:
+      fanshunet:
+        ipv4_address: ${ELASTICSEARCH_ADDRESS}
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:5.6.12
+    restart: always
+    ports:
+      - "${KIBANA_OUT_PORT}:5601"
+    volumes:
+      - ${KIBANA_CONF_FILE}:/usr/share/kibana/config/kibana.yml
+    environment:
+      - TZ=Asia/Shanghai
+      - xpack.security.enabled=false
+      - ELASTICSEARCH_URL=http://${ELASTICSEARCH_ADDRESS}:9200
+    depends_on:
+      - elasticsearch
+    networks:
+      fanshunet:
+        ipv4_address: ${KIBANA_ADDRESS}
+  logstash:
+    container_name: logstash
+    image: docker.elastic.co/logstash/logstash:5.6.12
+    restart: always
+    ports:
+      - "${LOGSTASH_FILEBEAT_PORT}:5044"
+    volumes:
+      - ${LOGSTASH_CONF_PATH}:/usr/share/logstash/pipeline/
+    environment:
+      - xpack.monitoring.enabled=false
+      - TZ=Asia/Shanghai
+    depends_on:
+      - elasticsearch
+    networks:
+      fanshunet:
+        ipv4_address: ${LOGSTASH_ADDRESS}
+networks:
+    fanshunet:
+        external:
+          name: fanshunet
